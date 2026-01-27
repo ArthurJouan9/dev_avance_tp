@@ -6,7 +6,7 @@ import {
   ManyToOne,
   JoinColumn 
 } from 'typeorm';
-import { Player } from './player.entity';
+import { Player } from '../../players/entities/player.entity';
 
 @Entity('matches')
 export class Match {

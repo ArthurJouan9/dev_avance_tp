@@ -7,5 +7,5 @@ export class CreatePlayerDto {
 
   @IsOptional()
   @IsInt()
-  eloRating?: number; // optionnel, permet à PlayersService de l’initialiser
+  eloRating?: number; // Optionnel
 }

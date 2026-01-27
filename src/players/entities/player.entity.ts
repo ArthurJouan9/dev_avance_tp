@@ -5,7 +5,7 @@ export class Player {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  @Column({ unique: true })
   name: string;
 
   @Column('int', { default: 1200 })
