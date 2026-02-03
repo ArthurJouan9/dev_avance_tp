@@ -131,6 +131,8 @@ realtime-elo-ranker-master/
 # Tests du serveur
 pnpm apps:server:test
 
+pnpm apps:server:test:e2e
+
 # Tests en mode watch
 pnpm apps:server:test:watch
 
