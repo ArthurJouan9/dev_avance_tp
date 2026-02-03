@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>README.md</title>
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+    
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+html,footer,header{
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Custom MD PDF CSS
+ */
+html,footer,header{
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+
+ }
+body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+<link rel="stylesheet" href="file:///home/iut45/Etudiants/o22300451/Documents/S6/periode1/dev_avance/realtime-elo-ranker-master/R%3A%5C2.Travail%5C1.Enseignement%5CCours%5C_1.Outils%5C2.Developpement%5C1.SCSS%5Cmain.css" type="text/css"><link rel="stylesheet" href="file:///home/iut45/Etudiants/o22300451/Documents/S6/periode1/dev_avance/realtime-elo-ranker-master/D%3A%5Crdaros%5CCours%5C_1.Outils%5C2.Developpement%5C1.SCSS%5Cmain.css" type="text/css">
+</head>
+
+<body>
+    <h1 id="realtime-elo-ranker">Realtime Elo Ranker</h1>
+<p>Realtime Elo Ranker est une application web permettant de simuler des matchs entre des joueurs et de calculer et afficher leur classement Elo en temps réel.</p>
+<h2 id="conteneurs-m%C3%A9tiers">Conteneurs Métiers</h2>
+<p><code>apps/realtime-elo-ranker-server</code> : Serveur de l'application (à implémenter)</p>
+<ul>
+<li>Sera basé sur NestJS</li>
+<li>Gèrera le calcul des résultat de matchs et le classement des joueurs</li>
+<li>Exposera l'API Web pour fournir les fonctionnalités métiers :
+<ul>
+<li>Calcul des matchs (cf: <a href="#classement-elo">Classement Elo</a>)</li>
+<li>Récupération du classement</li>
+<li>Mise à jour du classement en temps réel via des évènements</li>
+<li>Création de nouveaux joueurs</li>
+</ul>
+</li>
+</ul>
+<p><code>apps/realtime-elo-ranker-simulator</code> : Simulateur de matchs (à implémenter - bonus)</p>
+<ul>
+<li>Simulera des matchs entre des joueurs</li>
+<li>Enverra les résultats des matchs au serveur</li>
+<li>Vous pouvez utiliser un simple script NodeJS pour simuler les matchs</li>
+</ul>
+<p><code>apps/realtime-elo-ranker-client</code> : Client de l'application</p>
+<ul>
+<li>Basé sur NextJS</li>
+<li>Sert une IHM pour :
+<ul>
+<li>Saisir les résultats des matchs
+<ul>
+<li>ID du joueur 1</li>
+<li>ID du joueur 2</li>
+<li>Résultat du match</li>
+</ul>
+</li>
+<li>Afficher le classement des joueurs</li>
+<li>Créer de nouveaux joueurs</li>
+</ul>
+</li>
+</ul>
+<p><code>libs/ui</code> : Librairie de composants graphiques</p>
+<ul>
+<li>Contiendra les composants graphiques réutilisables pour le client</li>
+</ul>
+<h2 id="lancer-lapplication-cliente">Lancer l'application cliente</h2>
+<p><em>Prérequis :</em></p>
+<p>Le client repose sur une source CSS exposée par la librairie <code>libs/ui</code> (@realtime-elo-ranker/libs/ui). Il est nécessaire de construire la lib pour rendre la source accessible.</p>
+<p>Pour ce faire :</p>
+<pre class="hljs"><code><div>pnpm run libs:ui:build
+</div></code></pre>
+<p><strong>Puis</strong></p>
+<p>Lancer l'application :</p>
+<pre class="hljs"><code><div>pnpm run apps:client:dev
+</div></code></pre>
+<h2 id="lancer-la-doc-swagger">Lancer la doc swagger</h2>
+<pre class="hljs"><code><div>pnpm run apps:swagger:start
+</div></code></pre>
+<p>Le serveur Swagger sera accessible à l'adresse <code>http://localhost:3001/api-docs</code>.</p>
+<p>Le serveur est en hot-reload : les modifications apportées au <code>swagger.yaml</code> seront automatiquement prises en compte.</p>
+<p><strong>Note :</strong> Si le live-reload ne fonctionne pas, pensez à forwarder le port <code>35729</code> dans l'IDE.</p>
+<h2 id="lancer-le-mock-de-lapi">Lancer le mock de l'API</h2>
+<pre class="hljs"><code><div>pnpm run apps:api-mock:start
+</div></code></pre>
+<p>Le mock de l'API sera accessible à l'adresse <code>http://localhost:8080</code>. Il ne doit pas être lancé en même temps que le serveur de l'application.</p>
+<h1 id="architecture">Architecture</h1>
+<h2 id="back-for-front">Back for Front</h2>
+<p>Le serveur de l'application est un serveur BFF (Back for Front) qui expose une API Web pour gérer les fonctionnalités métiers de l'application. Il devra être basé sur NestJS, un framework Node.js pour construire des applications serveur.</p>
+<p>Le code serveur est à implémenter dans le dossier <code>apps/realtime-elo-ranker-server</code>.</p>
+<h2 id="frontend">Frontend</h2>
+<p>Le client de l'application est une application web basée sur Next.js, un framework React pour construire des applications web. Il servira une interface utilisateur pour saisir les résultats des matchs et afficher le classement des joueurs.</p>
+<p>Le client devra communiquer avec le serveur via l'API Web pour gérer les fonctionnalités métiers de l'application.</p>
+<p>Le classement, une fois restitué dans son état initial par le serveur, sera mis à jour en temps réel sur l'interface utilisateur du client.</p>
+<p>Le code client est fourni dans le dossier <code>apps/realtime-elo-ranker-client</code>.</p>
+<h2 id="api">API</h2>
+<p>L'API Web du serveur devra exposer les fonctionnalités telles que décrites dans le <a href="#lancer-la-doc-swagger">swagger</a> fourni.</p>
+<h3 id="mock-de-lapi">Mock de l'API</h3>
+<p>Un <a href="#lancer-le-mock-de-lapi">mock de l'API</a> est fourni pour tester le client sans avoir à implémenter le serveur. Le mock de l'API répondra aux requêtes du client avec des messages prédéfinis. Il ne gère pas les mises à jour en temps réel du classement.</p>
+<h1 id="r%C3%A8gles-de-gestion">Règles de gestion</h1>
+<h2 id="joueurs">Joueurs</h2>
+<ul>
+<li>Un joueur est identifié par un ID unique (entité).</li>
+<li>Un joueur a un classement Elo qui est mis à jour après chaque match (objet valeur).</li>
+<li>Un joueur peut participer à des matchs contre d'autres joueurs.</li>
+<li>Un joueur peut être créé avec un classement initial.
+<ul>
+<li>Le classement initial par défaut est égal à la moyenne du classement de tous les joueurs existants.</li>
+</ul>
+</li>
+</ul>
+<h2 id="matchs">Matchs</h2>
+<ul>
+<li>Un match est une confrontation entre deux joueurs.</li>
+<li>Un match a un résultat (victoire, défaite ou égalité).</li>
+<li>Le résultat du match est utilisé pour mettre à jour le classement des joueurs.</li>
+<li>Le classement des joueurs est mis à jour en suivant les fonctions de calcul du classement Elo.</li>
+</ul>
+<h2 id="classement">Classement</h2>
+<ul>
+<li>Le classement Elo est un système de classement des joueurs basé sur le calcul de la probabilité de victoire de chaque joueur en fonction de leur classement respectif.</li>
+<li>Le classement est une valeur numérique qui représente le niveau de compétence d'un joueur et symbolise un ordre de classement relatif entre les joueurs et un &quot;budget&quot; de points semblable à une monnaie d'échange.</li>
+</ul>
+<h1 id="guide-dimpl%C3%A9mentation">Guide d'implémentation</h1>
+<h2 id="serveur">Serveur</h2>
+<p>Le serveur de l'application devra être implémenté en utilisant NestJS, un framework Node.js pour construire des applications serveur. Le serveur devra exposer une API Web pour gérer les fonctionnalités métiers de l'application.</p>
+<h2 id="structures-de-donn%C3%A9es">Structures de données</h2>
+<p>Les données des joueurs et des matchs devront être stockées en mémoire dans des structures de données appropriées.</p>
+<ul>
+<li>Les joueurs devront être stockés dans une liste ou un tableau avec leur score</li>
+<li>L'historique des matchs devra être stocké dans une liste ou un tableau.</li>
+<li>Les</li>
+</ul>
+<h2 id="calcul-du-classement">Calcul du classement</h2>
+<p>Le calcul du classement Elo devra être implémenté en suivant les règles mathématiques décrites dans la section <a href="#classement-elo">Classement Elo</a>.</p>
+<ul>
+<li>Le classement des joueurs devra être mis à jour après chaque match en fonction du résultat du match et de l'écart de classement entre les joueurs.</li>
+<li>Le serveur devra, à la demande, servir un état actuel du classement des joueurs.</li>
+<li>Le serveur devra publier des événements en temps réel pour informer les clients connectés des mises à jour du classement.</li>
+</ul>
+<h2 id="conseils">Conseils</h2>
+<p><em>Ces conseils sont donnés à titre indicatif et ne sont pas exhaustifs. Les suivre n'est pas obligatoire mais peut vous aider à construire une application de qualité.</em></p>
+<ul>
+<li>Utilisez la POO pour modéliser les structures de données.</li>
+<li>Utilisez la PF (Programmation Fonctionnelle) pour les diverses fonctions de calcul de résultats, les créations d'objets et les .manipulations de données primitives</li>
+<li>Utilisez les services pour encapsuler la logique métier.</li>
+<li>Utilisez les contrôleurs pour gérer les requêtes HTTP.</li>
+<li>Utilisez les Websockets ou les Server-Sent Events pour la mise à jour en temps réel du classement.</li>
+<li>Utilisez les tests unitaires pour valider les fonctions critiques métiers.</li>
+<li>Utilisez les tests d'intégration pour valider les interactions entre les composants.</li>
+</ul>
+<h1 id="annexes">Annexes</h1>
+<h2 id="classement-elo">Classement Elo</h2>
+<p>Le classement Elo est un système de classement des joueurs dans un jeu à deux joueurs. Il est basé sur le calcul de la probabilité de victoire de chaque joueur en fonction de leur classement respectif. Le classement est mis à jour après chaque match en fonction du résultat du match et de l'écart de classement entre les joueurs.</p>
+<p>Ce système est typiquement utilisé dans les jeux d'échecs, mais peut être adapté à d'autres jeux à deux joueurs.</p>
+<h3 id="calcul-du-classement">Calcul du classement</h3>
+<p>Le classement Elo est calculé en fonction du classement actuel des joueurs et du résultat du match. Le calcul est basé sur la formule suivante :</p>
+<pre class="hljs"><code><div>Rn = Ro + K * (W - We)
+</div></code></pre>
+<p>Avec :</p>
+<ul>
+<li><code>Rn</code> : Nouveau classement du joueur</li>
+<li><code>Ro</code> : Ancien classement du joueur</li>
+<li><code>K</code> : Coefficient de pondération (facteur de sensibilité du classement)</li>
+<li><code>W</code> : Résultat du match (1 pour une victoire, 0.5 pour une égalité, 0 pour une défaite)</li>
+<li><code>We</code> : Probabilité de victoire du joueur en fonction de son classement et du classement de son adversaire</li>
+</ul>
+<p>Exemple de calcul du classement de deux joueurs après un match :</p>
+<pre class="hljs"><code><div># Joueur vainqueur
+# Ro = 1200 # Ancien classement
+# K = 32 # Coefficient de pondération
+# W = 1 # Victoire
+# We = 0.76 # Probabilité de victoire
+
+Rn = 1200 + 32 * (1 - 0.76)
+Rn = 1200 + 32 * 0.24
+Rn = 1200 + 7.68
+Rn = 1207.68
+Rn ≈ 1208
+
+# Joueur perdant
+# Ro = 800 # Ancien classement
+# K = 32 # Coefficient de pondération
+# W = 0 # Défaite
+# We = 0.24 # Probabilité de victoire
+
+Rn = 800 + 32 * (0 - 0.24)
+Rn = 800 + 32 * -0.24
+Rn = 800 - 7.68
+Rn = 792.32
+Rn ≈ 792
+</div></code></pre>
+<p>Remarque : Le classement est arrondi à l'entier le plus proche. Le coefficient de pondération <code>K</code> est arbitraire et peut être ajusté pour augmenter ou diminuer la sensibilité du classement aux résultats des matchs.</p>
+<h3 id="probabilit%C3%A9-de-victoire">Probabilité de victoire</h3>
+<p>La probabilité de victoire <code>We</code> est calculée en fonction de la différence de classement entre les deux joueurs. Plus la différence de classement est grande, plus la probabilité de victoire du joueur le mieux classé est élevée.</p>
+<p>Le calcul de la probabilité de victoire est basé sur la formule suivante :</p>
+<pre class="hljs"><code><div>We = 1 / (1 + 10^((Rh - Rl) / 400))
+</div></code></pre>
+<p>Avec :</p>
+<ul>
+<li><code>Rh</code> : Classement du joueur le mieux classé</li>
+<li><code>Rl</code> : Classement du joueur le moins bien classé</li>
+</ul>
+<p>Exemple de calcul de la probabilité de victoire d'un joueur avec un classement de 1200 contre un joueur avec un classement de 800 :</p>
+<pre class="hljs"><code><div># Joueur le mieux classé
+# Ro = 1200 # Classement du joueur
+# Rn = 800 # Classement de l'adversaire
+
+WHe = 1 / (1 + 10^((1200 - 800) / 400))
+WHe = 1 / (1 + 10^(400 / 400))
+WHe = 1 / (1 + 10^1)
+WHe = 1 / (1 + 10)
+WHe = 1 / 11
+WHe ≈ 0.09
+
+# Joueur le moins bien classé
+# Ro = 800 # Classement du joueur
+# Rn = 1200 # Classement de l'adversaire
+
+WLe = 1 / (1 + 10^((800 - 1200) / 400))
+WLe = 1 / (1 + 10^(-400 / 400))
+WLe = 1 / (1 + 10^-1)
+WLe = 1 / (1 + 0.1)
+WLe = 1 / 1.1
+WLe ≈ 0.91
+
+# Ou plus simplement
+WLe = 1 - WHe
+</div></code></pre>
+<p>Remarques :</p>
+<ul>
+<li>La probabilité de victoire est arrondie à deux décimales. Plus la différence de classement est grande, plus la probabilité de victoire est proche de 0 ou 1.</li>
+<li>La formule de calcul de la probabilité de victoire est basée sur la formule de la fonction logistique, qui est couramment utilisée pour modéliser des phénomènes binaires (victoire/défaite, succès/échec, etc.).</li>
+<li>La constante <code>400</code> est un paramètre empirique qui détermine la sensibilité de la probabilité de victoire à la différence de classement. Plus la constante est grande, plus la probabilité de victoire change rapidement avec la différence de classement.</li>
+<li>Par sa conception, le système Elo est mathématiquement un système transactionnel, c'est-à-dire que la somme des classements des joueurs reste constante après chaque match. Cela signifie que le classement gagné par un joueur est équivalent au classement perdu par son adversaire.</li>
+</ul>
+<p align="center">
+  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo"></a>
+</p>
+  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
+    <p align="center">
+<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version"></a>
+<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License"></a>
+<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads"></a>
+<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI"></a>
+<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"></a>
+<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective"></a>
+<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective"></a>
+  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"></a>
+    <a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
+  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&amp;label=Follow" alt="Follow us on Twitter"></a>
+</p>
+  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
+  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+<h2 id="description">Description</h2>
+<p><a href="https://github.com/nestjs/nest">Nest</a> framework TypeScript starter repository.</p>
+<h2 id="project-setup">Project setup</h2>
+<pre class="hljs"><code><div>$ pnpm install
+</div></code></pre>
+<h2 id="compile-and-run-the-project">Compile and run the project</h2>
+<pre class="hljs"><code><div><span class="hljs-comment"># development</span>
+$ pnpm run start
+
+<span class="hljs-comment"># watch mode</span>
+$ pnpm run start:dev
+
+<span class="hljs-comment"># production mode</span>
+$ pnpm run start:prod
+</div></code></pre>
+<h2 id="run-tests">Run tests</h2>
+<pre class="hljs"><code><div><span class="hljs-comment"># unit tests</span>
+$ pnpm run <span class="hljs-built_in">test</span>
+
+<span class="hljs-comment"># e2e tests</span>
+$ pnpm run <span class="hljs-built_in">test</span>:e2e
+
+<span class="hljs-comment"># test coverage</span>
+$ pnpm run <span class="hljs-built_in">test</span>:cov
+</div></code></pre>
+<h2 id="deployment">Deployment</h2>
+<p>When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the <a href="https://docs.nestjs.com/deployment">deployment documentation</a> for more information.</p>
+<p>If you are looking for a cloud-based platform to deploy your NestJS application, check out <a href="https://mau.nestjs.com">Mau</a>, our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:</p>
+<pre class="hljs"><code><div>$ pnpm install -g @nestjs/mau
+$ mau deploy
+</div></code></pre>
+<p>With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.</p>
+<h2 id="resources">Resources</h2>
+<p>Check out a few resources that may come in handy when working with NestJS:</p>
+<ul>
+<li>Visit the <a href="https://docs.nestjs.com">NestJS Documentation</a> to learn more about the framework.</li>
+<li>For questions and support, please visit our <a href="https://discord.gg/G7Qnnhy">Discord channel</a>.</li>
+<li>To dive deeper and get more hands-on experience, check out our official video <a href="https://courses.nestjs.com/">courses</a>.</li>
+<li>Deploy your application to AWS with the help of <a href="https://mau.nestjs.com">NestJS Mau</a> in just a few clicks.</li>
+<li>Visualize your application graph and interact with the NestJS application in real-time using <a href="https://devtools.nestjs.com">NestJS Devtools</a>.</li>
+<li>Need help with your project (part-time to full-time)? Check out our official <a href="https://enterprise.nestjs.com">enterprise support</a>.</li>
+<li>To stay in the loop and get updates, follow us on <a href="https://x.com/nestframework">X</a> and <a href="https://linkedin.com/company/nestjs">LinkedIn</a>.</li>
+<li>Looking for a job, or have a job to offer? Check out our official <a href="https://jobs.nestjs.com">Jobs board</a>.</li>
+</ul>
+<h2 id="support">Support</h2>
+<p>Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please <a href="https://docs.nestjs.com/support">read more here</a>.</p>
+<h2 id="stay-in-touch">Stay in touch</h2>
+<ul>
+<li>Author - <a href="https://twitter.com/kammysliwiec">Kamil Myśliwiec</a></li>
+<li>Website - <a href="https://nestjs.com/">https://nestjs.com</a></li>
+<li>Twitter - <a href="https://twitter.com/nestframework">@nestframework</a></li>
+</ul>
+<h2 id="license">License</h2>
+<p>Nest is <a href="https://github.com/nestjs/nest/blob/master/LICENSE">MIT licensed</a>.</p>
+
+</body>
+
+</html>
