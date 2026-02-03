@@ -366,291 +366,251 @@ code {
 </head>
 
 <body>
-    <h1 id="realtime-elo-ranker">Realtime Elo Ranker</h1>
-<p>Realtime Elo Ranker est une application web permettant de simuler des matchs entre des joueurs et de calculer et afficher leur classement Elo en temps réel.</p>
-<h2 id="conteneurs-m%C3%A9tiers">Conteneurs Métiers</h2>
-<p><code>apps/realtime-elo-ranker-server</code> : Serveur de l'application (à implémenter)</p>
+    <p>Voici le code Markdown complet :</p>
+<pre class="hljs"><code><div><span class="hljs-section"># Real-Time ELO Ranker</span>
+
+Un système de classement ELO en temps réel avec frontend React/Next.js et backend Nest.js.
+
+<span class="hljs-section">## 📋 Fonctionnalités</span>
+<span class="hljs-bullet">
+- </span>Système de classement ELO pour joueurs
+<span class="hljs-bullet">- </span>Interface en temps réel avec WebSockets
+<span class="hljs-bullet">- </span>Matchmaking automatique
+<span class="hljs-bullet">- </span>Historique des matchs
+<span class="hljs-bullet">- </span>Classement dynamique avec animations
+
+<span class="hljs-section">## 🏗️ Architecture</span>
+<span class="hljs-bullet">
+- </span><span class="hljs-strong">**Frontend**</span> : Next.js 15 avec React 19, TypeScript, Tailwind CSS
+<span class="hljs-bullet">- </span><span class="hljs-strong">**Backend**</span> : Nest.js avec TypeORM, SQL.js
+<span class="hljs-bullet">- </span><span class="hljs-strong">**Communication**</span> : WebSockets pour les mises à jour en temps réel
+<span class="hljs-bullet">- </span><span class="hljs-strong">**Base de données**</span> : SQLite en mémoire (SQL.js)
+<span class="hljs-bullet">- </span><span class="hljs-strong">**Monorepo**</span> : Géré avec pnpm workspaces
+
+<span class="hljs-section">## 🚀 Installation Rapide</span>
+
+<span class="hljs-section">### Prérequis</span>
+<span class="hljs-bullet">
+- </span>Node.js 18+ ou 20+
+<span class="hljs-bullet">- </span>pnpm 8+ (obligatoire)
+<span class="hljs-bullet">- </span>Git
+
+<span class="hljs-section">### Installation</span>
+
+<span class="hljs-code">```bash
+# 1. Clone le projet
+git clone &lt;url-du-projet&gt;
+cd realtime-elo-ranker-master
+
+# 2. Installe pnpm si ce n'est pas fait
+npm install -g pnpm
+
+# 3. Installe les dépendances
+pnpm install
+
+# 4. Configure l'environnement (optionnel)
+cp .env.example .env
+</span></div></code></pre>
+<h2 id="%F0%9F%8F%83%E2%80%8D%E2%99%82%EF%B8%8F-lancement">🏃‍♂️ Lancement</h2>
+<h3 id="d%C3%A9veloppement">Développement</h3>
+<pre class="hljs"><code><div><span class="hljs-comment"># Lancer le client (frontend) sur http://localhost:3000</span>
+pnpm apps:client:dev
+
+<span class="hljs-comment"># Lancer le serveur (backend) sur http://localhost:3001</span>
+pnpm apps:server:dev
+
+<span class="hljs-comment"># Lancer les deux en parallèle</span>
+pnpm apps:client:dev &amp; pnpm apps:server:dev
+</div></code></pre>
+<h3 id="production">Production</h3>
+<pre class="hljs"><code><div><span class="hljs-comment"># Build des applications</span>
+pnpm apps:server:build
+pnpm apps:client:build
+
+<span class="hljs-comment"># Lancement en production</span>
+pnpm apps:server:start
+<span class="hljs-comment"># Le client doit être servi par un serveur web (Nginx, etc.)</span>
+</div></code></pre>
+<h2 id="%F0%9F%93%81-structure-du-projet">📁 Structure du projet</h2>
+<pre class="hljs"><code><div>realtime-elo-ranker-master/
+├── apps/
+│   ├── realtime-elo-ranker-client/     # Frontend Next.js
+│   └── realtime-elo-ranker-server/     # Backend Nest.js
+├── libs/
+│   └── ui/                             # Composants UI partagés
+├── docs/                               # Documentation
+├── package.json                        # Configuration racine
+└── pnpm-workspace.yaml                 # Configuration pnpm
+</div></code></pre>
+<h2 id="%F0%9F%94%A7-configuration-technique">🔧 Configuration Technique</h2>
+<h3 id="choix-techniques-importants">Choix techniques importants</h3>
 <ul>
-<li>Sera basé sur NestJS</li>
-<li>Gèrera le calcul des résultat de matchs et le classement des joueurs</li>
-<li>Exposera l'API Web pour fournir les fonctionnalités métiers :
+<li>
+<p><strong>Monorepo avec pnpm</strong> :</p>
 <ul>
-<li>Calcul des matchs (cf: <a href="#classement-elo">Classement Elo</a>)</li>
-<li>Récupération du classement</li>
-<li>Mise à jour du classement en temps réel via des évènements</li>
-<li>Création de nouveaux joueurs</li>
+<li>Partage des dépendances entre projets</li>
+<li>Gestion simplifiée des versions</li>
+<li>Installation plus rapide</li>
+</ul>
+</li>
+<li>
+<p><strong>SQL.js (SQLite in-memory)</strong> :</p>
+<ul>
+<li>Base de données légère pour le développement</li>
+<li>Pas de configuration de serveur DB nécessaire</li>
+<li>Facile à tester et déployer</li>
+<li>Pour la production : Migrer vers PostgreSQL/MySQL recommandé</li>
+</ul>
+</li>
+<li>
+<p><strong>WebSockets pour le temps réel</strong> :</p>
+<ul>
+<li>Mises à jour immédiates du classement</li>
+<li>Expérience utilisateur fluide</li>
+<li>Pas de polling HTTP inutile</li>
+</ul>
+</li>
+<li>
+<p><strong>TypeScript partout</strong> :</p>
+<ul>
+<li>Sécurité des types frontend et backend</li>
+<li>Meilleure maintenabilité</li>
+<li>Auto-complétion améliorée</li>
+</ul>
+</li>
+<li>
+<p><strong>Turbopack pour Next.js</strong> :</p>
+<ul>
+<li>Compilation ultra-rapide en développement</li>
+<li>Meilleure expérience développeur</li>
 </ul>
 </li>
 </ul>
-<p><code>apps/realtime-elo-ranker-simulator</code> : Simulateur de matchs (à implémenter - bonus)</p>
+<h3 id="points-dattention-pour-l%C3%A9valuation">Points d'attention pour l'évaluation</h3>
 <ul>
-<li>Simulera des matchs entre des joueurs</li>
-<li>Enverra les résultats des matchs au serveur</li>
-<li>Vous pouvez utiliser un simple script NodeJS pour simuler les matchs</li>
-</ul>
-<p><code>apps/realtime-elo-ranker-client</code> : Client de l'application</p>
+<li>
+<p><strong>Architecture modulaire</strong> :</p>
 <ul>
-<li>Basé sur NextJS</li>
-<li>Sert une IHM pour :
-<ul>
-<li>Saisir les résultats des matchs
-<ul>
-<li>ID du joueur 1</li>
-<li>ID du joueur 2</li>
-<li>Résultat du match</li>
+<li>Séparation claire client/serveur</li>
+<li>Librairie UI partagée</li>
+<li>Services indépendants</li>
 </ul>
 </li>
-<li>Afficher le classement des joueurs</li>
-<li>Créer de nouveaux joueurs</li>
+<li>
+<p><strong>Gestion d'état temps réel</strong> :</p>
+<ul>
+<li>WebSockets bien intégrés</li>
+<li>Mises à jour optimistes</li>
+<li>Gestion des erreurs réseau</li>
 </ul>
 </li>
+<li>
+<p><strong>Calcul ELO</strong> :</p>
+<ul>
+<li>Algorithme standard implémenté</li>
+<li>Historique des changements de points</li>
+<li>Classement pondéré</li>
 </ul>
-<p><code>libs/ui</code> : Librairie de composants graphiques</p>
+</li>
+<li>
+<p><strong>Tests</strong> :</p>
 <ul>
-<li>Contiendra les composants graphiques réutilisables pour le client</li>
+<li>Tests unitaires backend (Jest)</li>
+<li>Tests composants frontend</li>
+<li>Tests d'intégration</li>
 </ul>
-<h2 id="lancer-lapplication-cliente">Lancer l'application cliente</h2>
-<p><em>Prérequis :</em></p>
-<p>Le client repose sur une source CSS exposée par la librairie <code>libs/ui</code> (@realtime-elo-ranker/libs/ui). Il est nécessaire de construire la lib pour rendre la source accessible.</p>
-<p>Pour ce faire :</p>
-<pre class="hljs"><code><div>pnpm run libs:ui:build
-</div></code></pre>
-<p><strong>Puis</strong></p>
-<p>Lancer l'application :</p>
-<pre class="hljs"><code><div>pnpm run apps:client:dev
-</div></code></pre>
-<h2 id="lancer-la-doc-swagger">Lancer la doc swagger</h2>
-<pre class="hljs"><code><div>pnpm run apps:swagger:start
-</div></code></pre>
-<p>Le serveur Swagger sera accessible à l'adresse <code>http://localhost:3001/api-docs</code>.</p>
-<p>Le serveur est en hot-reload : les modifications apportées au <code>swagger.yaml</code> seront automatiquement prises en compte.</p>
-<p><strong>Note :</strong> Si le live-reload ne fonctionne pas, pensez à forwarder le port <code>35729</code> dans l'IDE.</p>
-<h2 id="lancer-le-mock-de-lapi">Lancer le mock de l'API</h2>
-<pre class="hljs"><code><div>pnpm run apps:api-mock:start
-</div></code></pre>
-<p>Le mock de l'API sera accessible à l'adresse <code>http://localhost:8080</code>. Il ne doit pas être lancé en même temps que le serveur de l'application.</p>
-<h1 id="architecture">Architecture</h1>
-<h2 id="back-for-front">Back for Front</h2>
-<p>Le serveur de l'application est un serveur BFF (Back for Front) qui expose une API Web pour gérer les fonctionnalités métiers de l'application. Il devra être basé sur NestJS, un framework Node.js pour construire des applications serveur.</p>
-<p>Le code serveur est à implémenter dans le dossier <code>apps/realtime-elo-ranker-server</code>.</p>
-<h2 id="frontend">Frontend</h2>
-<p>Le client de l'application est une application web basée sur Next.js, un framework React pour construire des applications web. Il servira une interface utilisateur pour saisir les résultats des matchs et afficher le classement des joueurs.</p>
-<p>Le client devra communiquer avec le serveur via l'API Web pour gérer les fonctionnalités métiers de l'application.</p>
-<p>Le classement, une fois restitué dans son état initial par le serveur, sera mis à jour en temps réel sur l'interface utilisateur du client.</p>
-<p>Le code client est fourni dans le dossier <code>apps/realtime-elo-ranker-client</code>.</p>
-<h2 id="api">API</h2>
-<p>L'API Web du serveur devra exposer les fonctionnalités telles que décrites dans le <a href="#lancer-la-doc-swagger">swagger</a> fourni.</p>
-<h3 id="mock-de-lapi">Mock de l'API</h3>
-<p>Un <a href="#lancer-le-mock-de-lapi">mock de l'API</a> est fourni pour tester le client sans avoir à implémenter le serveur. Le mock de l'API répondra aux requêtes du client avec des messages prédéfinis. Il ne gère pas les mises à jour en temps réel du classement.</p>
-<h1 id="r%C3%A8gles-de-gestion">Règles de gestion</h1>
-<h2 id="joueurs">Joueurs</h2>
+</li>
+<li>
+<p><strong>UI/UX</strong> :</p>
 <ul>
-<li>Un joueur est identifié par un ID unique (entité).</li>
-<li>Un joueur a un classement Elo qui est mis à jour après chaque match (objet valeur).</li>
-<li>Un joueur peut participer à des matchs contre d'autres joueurs.</li>
-<li>Un joueur peut être créé avec un classement initial.
-<ul>
-<li>Le classement initial par défaut est égal à la moyenne du classement de tous les joueurs existants.</li>
+<li>Animations fluides avec Framer Motion</li>
+<li>Design responsive avec Tailwind</li>
+<li>Feedback utilisateur en temps réel</li>
 </ul>
 </li>
 </ul>
-<h2 id="matchs">Matchs</h2>
-<ul>
-<li>Un match est une confrontation entre deux joueurs.</li>
-<li>Un match a un résultat (victoire, défaite ou égalité).</li>
-<li>Le résultat du match est utilisé pour mettre à jour le classement des joueurs.</li>
-<li>Le classement des joueurs est mis à jour en suivant les fonctions de calcul du classement Elo.</li>
-</ul>
-<h2 id="classement">Classement</h2>
-<ul>
-<li>Le classement Elo est un système de classement des joueurs basé sur le calcul de la probabilité de victoire de chaque joueur en fonction de leur classement respectif.</li>
-<li>Le classement est une valeur numérique qui représente le niveau de compétence d'un joueur et symbolise un ordre de classement relatif entre les joueurs et un &quot;budget&quot; de points semblable à une monnaie d'échange.</li>
-</ul>
-<h1 id="guide-dimpl%C3%A9mentation">Guide d'implémentation</h1>
-<h2 id="serveur">Serveur</h2>
-<p>Le serveur de l'application devra être implémenté en utilisant NestJS, un framework Node.js pour construire des applications serveur. Le serveur devra exposer une API Web pour gérer les fonctionnalités métiers de l'application.</p>
-<h2 id="structures-de-donn%C3%A9es">Structures de données</h2>
-<p>Les données des joueurs et des matchs devront être stockées en mémoire dans des structures de données appropriées.</p>
-<ul>
-<li>Les joueurs devront être stockés dans une liste ou un tableau avec leur score</li>
-<li>L'historique des matchs devra être stocké dans une liste ou un tableau.</li>
-<li>Les</li>
-</ul>
-<h2 id="calcul-du-classement">Calcul du classement</h2>
-<p>Le calcul du classement Elo devra être implémenté en suivant les règles mathématiques décrites dans la section <a href="#classement-elo">Classement Elo</a>.</p>
-<ul>
-<li>Le classement des joueurs devra être mis à jour après chaque match en fonction du résultat du match et de l'écart de classement entre les joueurs.</li>
-<li>Le serveur devra, à la demande, servir un état actuel du classement des joueurs.</li>
-<li>Le serveur devra publier des événements en temps réel pour informer les clients connectés des mises à jour du classement.</li>
-</ul>
-<h2 id="conseils">Conseils</h2>
-<p><em>Ces conseils sont donnés à titre indicatif et ne sont pas exhaustifs. Les suivre n'est pas obligatoire mais peut vous aider à construire une application de qualité.</em></p>
-<ul>
-<li>Utilisez la POO pour modéliser les structures de données.</li>
-<li>Utilisez la PF (Programmation Fonctionnelle) pour les diverses fonctions de calcul de résultats, les créations d'objets et les .manipulations de données primitives</li>
-<li>Utilisez les services pour encapsuler la logique métier.</li>
-<li>Utilisez les contrôleurs pour gérer les requêtes HTTP.</li>
-<li>Utilisez les Websockets ou les Server-Sent Events pour la mise à jour en temps réel du classement.</li>
-<li>Utilisez les tests unitaires pour valider les fonctions critiques métiers.</li>
-<li>Utilisez les tests d'intégration pour valider les interactions entre les composants.</li>
-</ul>
-<h1 id="annexes">Annexes</h1>
-<h2 id="classement-elo">Classement Elo</h2>
-<p>Le classement Elo est un système de classement des joueurs dans un jeu à deux joueurs. Il est basé sur le calcul de la probabilité de victoire de chaque joueur en fonction de leur classement respectif. Le classement est mis à jour après chaque match en fonction du résultat du match et de l'écart de classement entre les joueurs.</p>
-<p>Ce système est typiquement utilisé dans les jeux d'échecs, mais peut être adapté à d'autres jeux à deux joueurs.</p>
-<h3 id="calcul-du-classement">Calcul du classement</h3>
-<p>Le classement Elo est calculé en fonction du classement actuel des joueurs et du résultat du match. Le calcul est basé sur la formule suivante :</p>
-<pre class="hljs"><code><div>Rn = Ro + K * (W - We)
+<h2 id="%F0%9F%A7%AA-tests">🧪 Tests</h2>
+<pre class="hljs"><code><div><span class="hljs-comment"># Tests du serveur</span>
+pnpm apps:server:<span class="hljs-built_in">test</span>
+
+<span class="hljs-comment"># Tests en mode watch</span>
+pnpm apps:server:<span class="hljs-built_in">test</span>:watch
+
+<span class="hljs-comment"># Build de la lib UI</span>
+pnpm libs:ui:build
 </div></code></pre>
-<p>Avec :</p>
+<h2 id="%F0%9F%93%8A-api-endpoints">📊 API Endpoints</h2>
+<h3 id="joueurs">Joueurs</h3>
 <ul>
-<li><code>Rn</code> : Nouveau classement du joueur</li>
-<li><code>Ro</code> : Ancien classement du joueur</li>
-<li><code>K</code> : Coefficient de pondération (facteur de sensibilité du classement)</li>
-<li><code>W</code> : Résultat du match (1 pour une victoire, 0.5 pour une égalité, 0 pour une défaite)</li>
-<li><code>We</code> : Probabilité de victoire du joueur en fonction de son classement et du classement de son adversaire</li>
+<li><code>GET /players</code> - Liste tous les joueurs</li>
+<li><code>POST /players</code> - Crée un nouveau joueur</li>
+<li><code>GET /players/:id</code> - Récupère un joueur</li>
+<li><code>PUT /players/:id</code> - Met à jour un joueur</li>
 </ul>
-<p>Exemple de calcul du classement de deux joueurs après un match :</p>
-<pre class="hljs"><code><div># Joueur vainqueur
-# Ro = 1200 # Ancien classement
-# K = 32 # Coefficient de pondération
-# W = 1 # Victoire
-# We = 0.76 # Probabilité de victoire
-
-Rn = 1200 + 32 * (1 - 0.76)
-Rn = 1200 + 32 * 0.24
-Rn = 1200 + 7.68
-Rn = 1207.68
-Rn ≈ 1208
-
-# Joueur perdant
-# Ro = 800 # Ancien classement
-# K = 32 # Coefficient de pondération
-# W = 0 # Défaite
-# We = 0.24 # Probabilité de victoire
-
-Rn = 800 + 32 * (0 - 0.24)
-Rn = 800 + 32 * -0.24
-Rn = 800 - 7.68
-Rn = 792.32
-Rn ≈ 792
-</div></code></pre>
-<p>Remarque : Le classement est arrondi à l'entier le plus proche. Le coefficient de pondération <code>K</code> est arbitraire et peut être ajusté pour augmenter ou diminuer la sensibilité du classement aux résultats des matchs.</p>
-<h3 id="probabilit%C3%A9-de-victoire">Probabilité de victoire</h3>
-<p>La probabilité de victoire <code>We</code> est calculée en fonction de la différence de classement entre les deux joueurs. Plus la différence de classement est grande, plus la probabilité de victoire du joueur le mieux classé est élevée.</p>
-<p>Le calcul de la probabilité de victoire est basé sur la formule suivante :</p>
-<pre class="hljs"><code><div>We = 1 / (1 + 10^((Rh - Rl) / 400))
-</div></code></pre>
-<p>Avec :</p>
+<h3 id="matchs">Matchs</h3>
 <ul>
-<li><code>Rh</code> : Classement du joueur le mieux classé</li>
-<li><code>Rl</code> : Classement du joueur le moins bien classé</li>
+<li><code>GET /matches</code> - Liste tous les matchs</li>
+<li><code>POST /matches</code> - Crée un nouveau match</li>
+<li><code>POST /matches/simulate</code> - Simule un match</li>
 </ul>
-<p>Exemple de calcul de la probabilité de victoire d'un joueur avec un classement de 1200 contre un joueur avec un classement de 800 :</p>
-<pre class="hljs"><code><div># Joueur le mieux classé
-# Ro = 1200 # Classement du joueur
-# Rn = 800 # Classement de l'adversaire
-
-WHe = 1 / (1 + 10^((1200 - 800) / 400))
-WHe = 1 / (1 + 10^(400 / 400))
-WHe = 1 / (1 + 10^1)
-WHe = 1 / (1 + 10)
-WHe = 1 / 11
-WHe ≈ 0.09
-
-# Joueur le moins bien classé
-# Ro = 800 # Classement du joueur
-# Rn = 1200 # Classement de l'adversaire
-
-WLe = 1 / (1 + 10^((800 - 1200) / 400))
-WLe = 1 / (1 + 10^(-400 / 400))
-WLe = 1 / (1 + 10^-1)
-WLe = 1 / (1 + 0.1)
-WLe = 1 / 1.1
-WLe ≈ 0.91
-
-# Ou plus simplement
-WLe = 1 - WHe
-</div></code></pre>
-<p>Remarques :</p>
+<h3 id="classement">Classement</h3>
 <ul>
-<li>La probabilité de victoire est arrondie à deux décimales. Plus la différence de classement est grande, plus la probabilité de victoire est proche de 0 ou 1.</li>
-<li>La formule de calcul de la probabilité de victoire est basée sur la formule de la fonction logistique, qui est couramment utilisée pour modéliser des phénomènes binaires (victoire/défaite, succès/échec, etc.).</li>
-<li>La constante <code>400</code> est un paramètre empirique qui détermine la sensibilité de la probabilité de victoire à la différence de classement. Plus la constante est grande, plus la probabilité de victoire change rapidement avec la différence de classement.</li>
-<li>Par sa conception, le système Elo est mathématiquement un système transactionnel, c'est-à-dire que la somme des classements des joueurs reste constante après chaque match. Cela signifie que le classement gagné par un joueur est équivalent au classement perdu par son adversaire.</li>
+<li><code>GET /ranking</code> - Récupère le classement actuel</li>
+<li><code>GET /ranking/history</code> - Historique du classement</li>
 </ul>
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo"></a>
-</p>
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version"></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License"></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads"></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI"></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective"></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective"></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"></a>
-    <a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&amp;label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
-<h2 id="description">Description</h2>
-<p><a href="https://github.com/nestjs/nest">Nest</a> framework TypeScript starter repository.</p>
-<h2 id="project-setup">Project setup</h2>
-<pre class="hljs"><code><div>$ pnpm install
-</div></code></pre>
-<h2 id="compile-and-run-the-project">Compile and run the project</h2>
-<pre class="hljs"><code><div><span class="hljs-comment"># development</span>
-$ pnpm run start
-
-<span class="hljs-comment"># watch mode</span>
-$ pnpm run start:dev
-
-<span class="hljs-comment"># production mode</span>
-$ pnpm run start:prod
-</div></code></pre>
-<h2 id="run-tests">Run tests</h2>
-<pre class="hljs"><code><div><span class="hljs-comment"># unit tests</span>
-$ pnpm run <span class="hljs-built_in">test</span>
-
-<span class="hljs-comment"># e2e tests</span>
-$ pnpm run <span class="hljs-built_in">test</span>:e2e
-
-<span class="hljs-comment"># test coverage</span>
-$ pnpm run <span class="hljs-built_in">test</span>:cov
-</div></code></pre>
-<h2 id="deployment">Deployment</h2>
-<p>When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the <a href="https://docs.nestjs.com/deployment">deployment documentation</a> for more information.</p>
-<p>If you are looking for a cloud-based platform to deploy your NestJS application, check out <a href="https://mau.nestjs.com">Mau</a>, our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:</p>
-<pre class="hljs"><code><div>$ pnpm install -g @nestjs/mau
-$ mau deploy
-</div></code></pre>
-<p>With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.</p>
-<h2 id="resources">Resources</h2>
-<p>Check out a few resources that may come in handy when working with NestJS:</p>
+<h2 id="%F0%9F%94%84-websocket-events">🔄 WebSocket Events</h2>
 <ul>
-<li>Visit the <a href="https://docs.nestjs.com">NestJS Documentation</a> to learn more about the framework.</li>
-<li>For questions and support, please visit our <a href="https://discord.gg/G7Qnnhy">Discord channel</a>.</li>
-<li>To dive deeper and get more hands-on experience, check out our official video <a href="https://courses.nestjs.com/">courses</a>.</li>
-<li>Deploy your application to AWS with the help of <a href="https://mau.nestjs.com">NestJS Mau</a> in just a few clicks.</li>
-<li>Visualize your application graph and interact with the NestJS application in real-time using <a href="https://devtools.nestjs.com">NestJS Devtools</a>.</li>
-<li>Need help with your project (part-time to full-time)? Check out our official <a href="https://enterprise.nestjs.com">enterprise support</a>.</li>
-<li>To stay in the loop and get updates, follow us on <a href="https://x.com/nestframework">X</a> and <a href="https://linkedin.com/company/nestjs">LinkedIn</a>.</li>
-<li>Looking for a job, or have a job to offer? Check out our official <a href="https://jobs.nestjs.com">Jobs board</a>.</li>
+<li><code>ranking_update</code> - Mise à jour du classement</li>
+<li><code>match_created</code> - Nouveau match créé</li>
+<li><code>player_updated</code> - Joueur mis à jour</li>
 </ul>
-<h2 id="support">Support</h2>
-<p>Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please <a href="https://docs.nestjs.com/support">read more here</a>.</p>
-<h2 id="stay-in-touch">Stay in touch</h2>
+<h2 id="%F0%9F%90%9B-d%C3%A9pannage">🐛 Dépannage</h2>
+<h3 id="probl%C3%A8mes-courants">Problèmes courants</h3>
 <ul>
-<li>Author - <a href="https://twitter.com/kammysliwiec">Kamil Myśliwiec</a></li>
-<li>Website - <a href="https://nestjs.com/">https://nestjs.com</a></li>
-<li>Twitter - <a href="https://twitter.com/nestframework">@nestframework</a></li>
+<li>
+<p><strong>Erreur &quot;Module not found: 'motion/react'&quot;</strong> :</p>
+<pre class="hljs"><code><div>rm -rf node_modules apps/*/node_modules
+pnpm install
+</div></code></pre>
+</li>
+<li>
+<p><strong>Erreur de version React</strong> :<br>
+Vérifier que react et react-dom ont la même version dans pnpm-workspace.yaml</p>
+</li>
+<li>
+<p><strong>SQL.js non trouvé</strong> :</p>
+<pre class="hljs"><code><div>pnpm add sql.js -F realtime-elo-ranker-server
+</div></code></pre>
+</li>
+<li>
+<p><strong>Ports déjà utilisés</strong> :<br>
+Modifier les ports dans les fichiers .env</p>
+</li>
 </ul>
-<h2 id="license">License</h2>
-<p>Nest is <a href="https://github.com/nestjs/nest/blob/master/LICENSE">MIT licensed</a>.</p>
+<h2 id="%F0%9F%93%9D-notes-pour-l%C3%A9valuation">📝 Notes pour l'évaluation</h2>
+<h3 id="points-forts">Points forts</h3>
+<ul>
+<li>Architecture modulaire et maintenable</li>
+<li>Temps réel bien implémenté</li>
+<li>Code TypeScript de qualité</li>
+<li>Animations UI fluides</li>
+<li>Tests automatisés</li>
+</ul>
+<h3 id="am%C3%A9liorations-possibles">Améliorations possibles</h3>
+<ul>
+<li>Migration vers base de données persistante</li>
+<li>Authentification des joueurs</li>
+<li>Système de tournois</li>
+<li>Dashboard administrateur</li>
+<li>Internationalisation</li>
+</ul>
+<h2 id="%F0%9F%91%A5-%C3%A9quipe">👥 Équipe</h2>
+<ul>
+<li>[Noms des membres de l'équipe]</li>
+</ul>
+<h2 id="%F0%9F%93%84-licence">📄 Licence</h2>
+<p>UNLICENSED - Usage privé uniquement</p>
+<pre class="hljs"><code><div></div></code></pre>
 
 </body>
 
