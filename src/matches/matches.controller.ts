@@ -3,32 +3,27 @@ import { MatchesService } from './matches.service';
 import { MatchResultDto } from './dto/match-results.dto';
 import { PlayerDto } from '../players/dto/player.dto';
 
-@Controller('matches')
+@Controller('api/match')
 export class MatchesController {
   constructor(private readonly matchesService: MatchesService) {}
 
   @Post()
   async createMatch(@Body() body: { winner: string; loser: string; draw: boolean }): Promise<MatchResultDto> {
-    const score1 = body.draw ? 0.5 : 1;
-    const score2 = body.draw ? 0.5 : 0;
-    
     const { winner, loser } = await this.matchesService.playMatch(
       body.winner,
       body.loser,
-      score1,
-      score2
+      body.draw ? 0.5 : 1,
+      body.draw ? 0.5 : 0
     );
     
     const winnerDto: PlayerDto = {
-      id: winner.id,
+      id: winner.name, // ID = nom
       rank: winner.eloRating,
-      name: winner.name,
     };
     
     const loserDto: PlayerDto = {
-      id: loser.id,
+      id: loser.name, // ID = nom
       rank: loser.eloRating,
-      name: loser.name,
     };
     
     return {

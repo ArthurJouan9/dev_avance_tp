@@ -1,18 +1,18 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { EventEmitterModule } from '@nestjs/event-emitter';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { PlayersController } from './players/players.controller';
 import { RankingController } from './ranking/ranking.controller';
-import { MatchController } from './matches/matches.controller';
-import { RankingCacheService } from './shared/rank-cache.service';
+import { MatchesController } from './matches/matches.controller'; // Note: MatchesController, pas MatchController
 import { PlayersService } from './players/players.service';
-import { EloService } from './shared/elo.service';
-import { Player } from './entities/player.entity';
-import { Match } from './matches/entities/match.entity';
 import { PlayersDbService } from './players/players-db.service';
-import { match } from 'assert';
+import { MatchesService } from './matches/matches.service'; // Ajouté
+import { MatchesDbService } from './matches/matches-db.service'; // Ajouté
+import { RankingService } from './ranking/ranking.service'; // Ajouté
+import { RankCacheService } from './ranking/rank-cache.service'; // Changé: dans ranking/
+import { EloService } from './matches/elo.service'; // Changé: dans matches/
+import { Player } from './players/entities/player.entity';
+import { Match } from './matches/entities/match.entity';
 
 @Module({
   imports: [
@@ -26,7 +26,19 @@ import { match } from 'assert';
     TypeOrmModule.forFeature([Player, Match]),
     EventEmitterModule.forRoot(),
   ],
-  controllers: [AppController, PlayersController, RankingController, MatchController],
-  providers: [AppService, PlayersService, EloService, RankingCacheService, PlayersDbService ],
+  controllers: [
+    PlayersController, 
+    RankingController, 
+    MatchesController // MatchesController, pas MatchController
+  ],
+  providers: [
+    PlayersService, 
+    PlayersDbService,
+    MatchesService, // Ajouté
+    MatchesDbService, // Ajouté
+    RankingService, // Ajouté
+    EloService, // Maintenant dans matches/
+    RankCacheService, // Maintenant dans ranking/
+  ],
 })
 export class AppModule {}

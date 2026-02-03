@@ -2,19 +2,31 @@ import { Controller, Post, Body, Get } from '@nestjs/common';
 import { PlayersService } from './players.service';
 import { PlayerDto } from './dto/player.dto';
 
-@Controller('players')
+@Controller('api/player')
 export class PlayersController {
   constructor(private readonly playersService: PlayersService) {}
 
   @Post()
   async createPlayer(@Body() body: { id: string }): Promise<PlayerDto> {
-    const player = await this.playersService.create({ name: body.id });
-    
-    return {
-      id: player.id,
-      rank: player.eloRating,
-      name: player.name,
-    };
+    // Vérifier si un joueur avec ce nom existe déjà
+    try {
+      const existingPlayer = await this.playersService.findByName(body.id);
+      // Retourner le joueur existant
+      return {
+        id: existingPlayer.name, // ID = nom
+        rank: existingPlayer.eloRating,
+      };
+    } catch (error) {
+      // Créer le joueur
+      const player = await this.playersService.create({ 
+        name: body.id // Utiliser le nom venant du frontend
+      });
+      
+      return {
+        id: player.name, // ID = nom
+        rank: player.eloRating,
+      };
+    }
   }
 
   @Get()
@@ -22,9 +34,8 @@ export class PlayersController {
     const players = await this.playersService.findAll();
     
     return players.map(player => ({
-      id: player.id,
+      id: player.name, // ID = nom
       rank: player.eloRating,
-      name: player.name,
     }));
   }
 }

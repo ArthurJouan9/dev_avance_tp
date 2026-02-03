@@ -51,9 +51,8 @@ export class PlayersService {
 
   private emitPlayerUpdated(player: Player): void {
     const playerDto: PlayerDto = {
-      id: player.id,
+      id: player.name,
       rank: player.eloRating,
-      name: player.name,
     };
     this.eventEmitter.emit('ranking.updated', playerDto);
   }

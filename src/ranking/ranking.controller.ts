@@ -1,68 +1,43 @@
-// controllers/ranking.controller.ts
 import { Controller, Get, Sse } from '@nestjs/common';
-import { PlayersService } from '../players/players.service';
+import { RankingService } from './ranking.service';
 import { Observable, fromEventPattern, map } from 'rxjs';
 import { EventEmitter2 } from '@nestjs/event-emitter';
+import { RankingUpdateDto } from './dto/ranking-update.dto';
+import { PlayerDto } from '../players/dto/player.dto';
 
-@Controller('api')
+@Controller('api/ranking')
 export class RankingController {
   constructor(
-    private readonly playersService: PlayersService,
+    private readonly rankingService: RankingService,
     private readonly eventEmitter: EventEmitter2,
   ) {}
 
-  @Get('ranking')
-  async getRanking() {
-    const players = await this.playersService.getRanking();
+  @Get()
+  async getRanking(): Promise<PlayerDto[]> {
+    const players = await this.rankingService.getRanking();
     
     return players.map(player => ({
-      id: player.name,
-      rank: player.eloRating,
-      name: player.name,
+      id: player.id, // ID est déjà le nom
+      rank: player.rank,
     }));
   }
 
-  @Sse('ranking/events')
+  @Sse('events')
   sse(): Observable<MessageEvent> {
     return fromEventPattern(
       (handler) => {
-        const listener = (players: any[]) => {
-          // S'assurer que players est un tableau valide
-          if (!players || !Array.isArray(players)) {
-            console.warn('⚠️ Données de joueurs invalides reçues');
-            players = [];
-          }
-          
-          // Transformer les joueurs pour le frontend
-          const transformedPlayers = players
-            .filter(player => player && player.id) // Filtrer les joueurs invalides
-            .map(player => ({
-              id: player.id,
-              rank: player.eloRating,
-              name: player.name,
-            }));
-          
-          // S'assurer qu'on a au moins un joueur à envoyer
-          if (transformedPlayers.length === 0) {
-            // Si pas de joueurs, envoyer un objet vide mais valide
-            handler({
-              data: JSON.stringify({
-                type: 'RankingUpdate',
-                player: { id: '', rank: 0, name: '' }
-              })
-            });
-          } else {
-            // Envoyer tous les joueurs et le premier comme "player" pour le frontend
-            handler({
-              data: JSON.stringify({
-                type: 'RankingUpdate',
-                player: transformedPlayers[0], // Premier joueur
-                players: transformedPlayers    // Tous les joueurs
-              })
-            });
-          }
+        const listener = (playerDto: PlayerDto) => {
+          // playerDto.id est déjà le nom
+          const rankingUpdate: RankingUpdateDto = {
+            type: 'RankingUpdate',
+            player: playerDto,
+          };
+
+          handler({
+            data: JSON.stringify(rankingUpdate),
+          });
         };
-        
+
         this.eventEmitter.on('ranking.updated', listener);
         return listener;
       },
