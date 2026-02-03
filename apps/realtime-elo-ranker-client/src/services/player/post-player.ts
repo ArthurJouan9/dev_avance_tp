@@ -6,8 +6,8 @@ const URL = "/api/player";
  * @param {string} baseUrl The base URL of the API
  * @param {string} id The ID of the new player
  */
-export default function postPlayer(baseUrl: string, id: string): Promise<Response> {
-  return fetch(baseUrl + URL, {
+export default async function postPlayer(baseUrl: string, id: string): Promise<Response> {
+  const response = await fetch(baseUrl + URL, {
     method: "POST",
     body: JSON.stringify({
       id,
@@ -16,4 +16,11 @@ export default function postPlayer(baseUrl: string, id: string): Promise<Respons
       "Content-Type": "application/json",
     },
   });
+
+  // Log l'erreur si elle existe
+  if (!response.ok) {
+    console.error(`Error ${response.status}:`, await response.json());
+  }
+
+  return response;
 }
