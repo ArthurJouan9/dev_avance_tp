@@ -1,25 +1,11 @@
-Voici le code Markdown complet :
 
-```markdown
 # Real-Time ELO Ranker
 
-Un système de classement ELO en temps réel avec frontend React/Next.js et backend Nest.js.
 
-## 📋 Fonctionnalités
 
-- Système de classement ELO pour joueurs
-- Interface en temps réel avec WebSockets
-- Matchmaking automatique
-- Historique des matchs
-- Classement dynamique avec animations
 
-## 🏗️ Architecture
 
-- **Frontend** : Next.js 15 avec React 19, TypeScript, Tailwind CSS
-- **Backend** : Nest.js avec TypeORM, SQL.js
-- **Communication** : WebSockets pour les mises à jour en temps réel
-- **Base de données** : SQLite en mémoire (SQL.js)
-- **Monorepo** : Géré avec pnpm workspaces
+
 
 ## 🚀 Installation Rapide
 
@@ -32,18 +18,13 @@ Un système de classement ELO en temps réel avec frontend React/Next.js et back
 ### Installation
 
 ```bash
-# 1. Clone le projet
-git clone <url-du-projet>
-cd realtime-elo-ranker-master
-
-# 2. Installe pnpm si ce n'est pas fait
+# 1. Installe pnpm si ce n'est pas fait
 npm install -g pnpm
 
-# 3. Installe les dépendances
+# dans le dossier racine
+# 2. Installe les dépendances
 pnpm install
 
-# 4. Configure l'environnement (optionnel)
-cp .env.example .env
 ```
 
 ## 🏃‍♂️ Lancement
@@ -57,21 +38,9 @@ pnpm apps:client:dev
 # Lancer le serveur (backend) sur http://localhost:3001
 pnpm apps:server:dev
 
-# Lancer les deux en parallèle
-pnpm apps:client:dev & pnpm apps:server:dev
 ```
 
-### Production
 
-```bash
-# Build des applications
-pnpm apps:server:build
-pnpm apps:client:build
-
-# Lancement en production
-pnpm apps:server:start
-# Le client doit être servi par un serveur web (Nginx, etc.)
-```
 
 ## 📁 Structure du projet
 
@@ -80,6 +49,45 @@ realtime-elo-ranker-master/
 ├── apps/
 │   ├── realtime-elo-ranker-client/     # Frontend Next.js
 │   └── realtime-elo-ranker-server/     # Backend Nest.js
+│       ├── src/
+│       │   ├── app.module.ts           # Module principal
+│       │   ├── main.ts                 # Point d'entrée
+│       │   ├── matches/                # Module des matchs
+│       │   │   ├── dto/                # Data Transfer Objects
+│       │   │   │   ├── create-match.dto.ts
+│       │   │   │   └── match-results.dto.ts
+│       │   │   ├── elo.service.ts      # Service de calcul ELO
+│       │   │   ├── entities/
+│       │   │   │   └── match.entity.ts # Entité Match
+│       │   │   ├── matches.controller.ts
+│       │   │   ├── matches-db.service.ts
+│       │   │   ├── matches.module.ts
+│       │   │   ├── matches.service.ts
+│       │   │   └── __tests__/          # Tests unitaires
+│       │   ├── players/                # Module des joueurs
+│       │   │   ├── dto/
+│       │   │   │   ├── create-player.dto.ts
+│       │   │   │   ├── player.dto.ts
+│       │   │   │   └── update-player.dto.ts
+│       │   │   ├── entities/
+│       │   │   │   └── player.entity.ts # Entité Player
+│       │   │   ├── players.controller.ts
+│       │   │   ├── players-db.service.ts
+│       │   │   ├── players.module.ts
+│       │   │   ├── players.service.ts
+│       │   │   └── __tests__/
+│       │   └── ranking/                # Module du classement
+│       │       ├── dto/
+│       │       │   ├── error.dto.ts
+│       │       │   ├── ranking-event.dto.ts
+│       │       │   └── ranking-update.dto.ts
+│       │       ├── rank-cache.service.ts # Cache du classement
+│       │       ├── ranking.controller.ts
+│       │       ├── ranking.module.ts
+│       │       ├── ranking.service.ts
+│       │       └── __tests__/
+│       └── test/                       # Tests E2E
+│           └── app.e2e-spec.ts
 ├── libs/
 │   └── ui/                             # Composants UI partagés
 ├── docs/                               # Documentation
@@ -116,32 +124,6 @@ realtime-elo-ranker-master/
   - Compilation ultra-rapide en développement
   - Meilleure expérience développeur
 
-### Points d'attention pour l'évaluation
-
-- **Architecture modulaire** :
-  - Séparation claire client/serveur
-  - Librairie UI partagée
-  - Services indépendants
-
-- **Gestion d'état temps réel** :
-  - WebSockets bien intégrés
-  - Mises à jour optimistes
-  - Gestion des erreurs réseau
-
-- **Calcul ELO** :
-  - Algorithme standard implémenté
-  - Historique des changements de points
-  - Classement pondéré
-
-- **Tests** :
-  - Tests unitaires backend (Jest)
-  - Tests composants frontend
-  - Tests d'intégration
-
-- **UI/UX** :
-  - Animations fluides avec Framer Motion
-  - Design responsive avec Tailwind
-  - Feedback utilisateur en temps réel
 
 ## 🧪 Tests
 
@@ -203,29 +185,3 @@ pnpm libs:ui:build
 - **Ports déjà utilisés** :
   Modifier les ports dans les fichiers .env
 
-## 📝 Notes pour l'évaluation
-
-### Points forts
-
-- Architecture modulaire et maintenable
-- Temps réel bien implémenté
-- Code TypeScript de qualité
-- Animations UI fluides
-- Tests automatisés
-
-### Améliorations possibles
-
-- Migration vers base de données persistante
-- Authentification des joueurs
-- Système de tournois
-- Dashboard administrateur
-- Internationalisation
-
-## 👥 Équipe
-
-- [Noms des membres de l'équipe]
-
-## 📄 Licence
-
-UNLICENSED - Usage privé uniquement
-```

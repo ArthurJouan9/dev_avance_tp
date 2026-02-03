@@ -366,51 +366,23 @@ code {
 </head>
 
 <body>
-    <p>Voici le code Markdown complet :</p>
-<pre class="hljs"><code><div><span class="hljs-section"># Real-Time ELO Ranker</span>
-
-Un système de classement ELO en temps réel avec frontend React/Next.js et backend Nest.js.
-
-<span class="hljs-section">## 📋 Fonctionnalités</span>
-<span class="hljs-bullet">
-- </span>Système de classement ELO pour joueurs
-<span class="hljs-bullet">- </span>Interface en temps réel avec WebSockets
-<span class="hljs-bullet">- </span>Matchmaking automatique
-<span class="hljs-bullet">- </span>Historique des matchs
-<span class="hljs-bullet">- </span>Classement dynamique avec animations
-
-<span class="hljs-section">## 🏗️ Architecture</span>
-<span class="hljs-bullet">
-- </span><span class="hljs-strong">**Frontend**</span> : Next.js 15 avec React 19, TypeScript, Tailwind CSS
-<span class="hljs-bullet">- </span><span class="hljs-strong">**Backend**</span> : Nest.js avec TypeORM, SQL.js
-<span class="hljs-bullet">- </span><span class="hljs-strong">**Communication**</span> : WebSockets pour les mises à jour en temps réel
-<span class="hljs-bullet">- </span><span class="hljs-strong">**Base de données**</span> : SQLite en mémoire (SQL.js)
-<span class="hljs-bullet">- </span><span class="hljs-strong">**Monorepo**</span> : Géré avec pnpm workspaces
-
-<span class="hljs-section">## 🚀 Installation Rapide</span>
-
-<span class="hljs-section">### Prérequis</span>
-<span class="hljs-bullet">
-- </span>Node.js 18+ ou 20+
-<span class="hljs-bullet">- </span>pnpm 8+ (obligatoire)
-<span class="hljs-bullet">- </span>Git
-
-<span class="hljs-section">### Installation</span>
-
-<span class="hljs-code">```bash
-# 1. Clone le projet
-git clone &lt;url-du-projet&gt;
-cd realtime-elo-ranker-master
-
-# 2. Installe pnpm si ce n'est pas fait
+    <h1 id="real-time-elo-ranker">Real-Time ELO Ranker</h1>
+<h2 id="%F0%9F%9A%80-installation-rapide">🚀 Installation Rapide</h2>
+<h3 id="pr%C3%A9requis">Prérequis</h3>
+<ul>
+<li>Node.js 18+ ou 20+</li>
+<li>pnpm 8+ (obligatoire)</li>
+<li>Git</li>
+</ul>
+<h3 id="installation">Installation</h3>
+<pre class="hljs"><code><div><span class="hljs-comment"># 1. Installe pnpm si ce n'est pas fait</span>
 npm install -g pnpm
 
-# 3. Installe les dépendances
+<span class="hljs-comment"># dans le dossier racine</span>
+<span class="hljs-comment"># 2. Installe les dépendances</span>
 pnpm install
 
-# 4. Configure l'environnement (optionnel)
-cp .env.example .env
-</span></div></code></pre>
+</div></code></pre>
 <h2 id="%F0%9F%8F%83%E2%80%8D%E2%99%82%EF%B8%8F-lancement">🏃‍♂️ Lancement</h2>
 <h3 id="d%C3%A9veloppement">Développement</h3>
 <pre class="hljs"><code><div><span class="hljs-comment"># Lancer le client (frontend) sur http://localhost:3000</span>
@@ -419,23 +391,51 @@ pnpm apps:client:dev
 <span class="hljs-comment"># Lancer le serveur (backend) sur http://localhost:3001</span>
 pnpm apps:server:dev
 
-<span class="hljs-comment"># Lancer les deux en parallèle</span>
-pnpm apps:client:dev &amp; pnpm apps:server:dev
-</div></code></pre>
-<h3 id="production">Production</h3>
-<pre class="hljs"><code><div><span class="hljs-comment"># Build des applications</span>
-pnpm apps:server:build
-pnpm apps:client:build
-
-<span class="hljs-comment"># Lancement en production</span>
-pnpm apps:server:start
-<span class="hljs-comment"># Le client doit être servi par un serveur web (Nginx, etc.)</span>
 </div></code></pre>
 <h2 id="%F0%9F%93%81-structure-du-projet">📁 Structure du projet</h2>
 <pre class="hljs"><code><div>realtime-elo-ranker-master/
 ├── apps/
 │   ├── realtime-elo-ranker-client/     # Frontend Next.js
 │   └── realtime-elo-ranker-server/     # Backend Nest.js
+│       ├── src/
+│       │   ├── app.module.ts           # Module principal
+│       │   ├── main.ts                 # Point d'entrée
+│       │   ├── matches/                # Module des matchs
+│       │   │   ├── dto/                # Data Transfer Objects
+│       │   │   │   ├── create-match.dto.ts
+│       │   │   │   └── match-results.dto.ts
+│       │   │   ├── elo.service.ts      # Service de calcul ELO
+│       │   │   ├── entities/
+│       │   │   │   └── match.entity.ts # Entité Match
+│       │   │   ├── matches.controller.ts
+│       │   │   ├── matches-db.service.ts
+│       │   │   ├── matches.module.ts
+│       │   │   ├── matches.service.ts
+│       │   │   └── __tests__/          # Tests unitaires
+│       │   ├── players/                # Module des joueurs
+│       │   │   ├── dto/
+│       │   │   │   ├── create-player.dto.ts
+│       │   │   │   ├── player.dto.ts
+│       │   │   │   └── update-player.dto.ts
+│       │   │   ├── entities/
+│       │   │   │   └── player.entity.ts # Entité Player
+│       │   │   ├── players.controller.ts
+│       │   │   ├── players-db.service.ts
+│       │   │   ├── players.module.ts
+│       │   │   ├── players.service.ts
+│       │   │   └── __tests__/
+│       │   └── ranking/                # Module du classement
+│       │       ├── dto/
+│       │       │   ├── error.dto.ts
+│       │       │   ├── ranking-event.dto.ts
+│       │       │   └── ranking-update.dto.ts
+│       │       ├── rank-cache.service.ts # Cache du classement
+│       │       ├── ranking.controller.ts
+│       │       ├── ranking.module.ts
+│       │       ├── ranking.service.ts
+│       │       └── __tests__/
+│       └── test/                       # Tests E2E
+│           └── app.e2e-spec.ts
 ├── libs/
 │   └── ui/                             # Composants UI partagés
 ├── docs/                               # Documentation
@@ -483,49 +483,6 @@ pnpm apps:server:start
 <ul>
 <li>Compilation ultra-rapide en développement</li>
 <li>Meilleure expérience développeur</li>
-</ul>
-</li>
-</ul>
-<h3 id="points-dattention-pour-l%C3%A9valuation">Points d'attention pour l'évaluation</h3>
-<ul>
-<li>
-<p><strong>Architecture modulaire</strong> :</p>
-<ul>
-<li>Séparation claire client/serveur</li>
-<li>Librairie UI partagée</li>
-<li>Services indépendants</li>
-</ul>
-</li>
-<li>
-<p><strong>Gestion d'état temps réel</strong> :</p>
-<ul>
-<li>WebSockets bien intégrés</li>
-<li>Mises à jour optimistes</li>
-<li>Gestion des erreurs réseau</li>
-</ul>
-</li>
-<li>
-<p><strong>Calcul ELO</strong> :</p>
-<ul>
-<li>Algorithme standard implémenté</li>
-<li>Historique des changements de points</li>
-<li>Classement pondéré</li>
-</ul>
-</li>
-<li>
-<p><strong>Tests</strong> :</p>
-<ul>
-<li>Tests unitaires backend (Jest)</li>
-<li>Tests composants frontend</li>
-<li>Tests d'intégration</li>
-</ul>
-</li>
-<li>
-<p><strong>UI/UX</strong> :</p>
-<ul>
-<li>Animations fluides avec Framer Motion</li>
-<li>Design responsive avec Tailwind</li>
-<li>Feedback utilisateur en temps réel</li>
 </ul>
 </li>
 </ul>
@@ -587,30 +544,6 @@ Vérifier que react et react-dom ont la même version dans pnpm-workspace.yaml</
 Modifier les ports dans les fichiers .env</p>
 </li>
 </ul>
-<h2 id="%F0%9F%93%9D-notes-pour-l%C3%A9valuation">📝 Notes pour l'évaluation</h2>
-<h3 id="points-forts">Points forts</h3>
-<ul>
-<li>Architecture modulaire et maintenable</li>
-<li>Temps réel bien implémenté</li>
-<li>Code TypeScript de qualité</li>
-<li>Animations UI fluides</li>
-<li>Tests automatisés</li>
-</ul>
-<h3 id="am%C3%A9liorations-possibles">Améliorations possibles</h3>
-<ul>
-<li>Migration vers base de données persistante</li>
-<li>Authentification des joueurs</li>
-<li>Système de tournois</li>
-<li>Dashboard administrateur</li>
-<li>Internationalisation</li>
-</ul>
-<h2 id="%F0%9F%91%A5-%C3%A9quipe">👥 Équipe</h2>
-<ul>
-<li>[Noms des membres de l'équipe]</li>
-</ul>
-<h2 id="%F0%9F%93%84-licence">📄 Licence</h2>
-<p>UNLICENSED - Usage privé uniquement</p>
-<pre class="hljs"><code><div></div></code></pre>
 
 </body>
 
