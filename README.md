@@ -32,6 +32,10 @@ pnpm install
 ### Développement
 
 ```bash
+
+# Build de la lib UI
+pnpm libs:ui:build
+
 # Lancer le client (frontend) sur http://localhost:3000
 pnpm apps:client:dev
 
@@ -135,9 +139,6 @@ cd apps/realtime-elo-ranker-server && pnpm test:e2e
 
 # Tests en mode watch
 pnpm apps:server:test:watch
-
-# Build de la lib UI
-pnpm libs:ui:build
 ```
 
 ## 📊 API Endpoints
